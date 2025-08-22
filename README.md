@@ -15,13 +15,14 @@ Desarrollado por **DNA+art / Hábitat de Ideas**.
   - Guarda y carga configuraciones completas en archivos JSON.
   - Recuerda automáticamente el último perfil utilizado.
 - **Controles de Reproducción**:
-  - **Globales**: Play, Pausa y Reinicio para todos los videos simultáneamente.
+  - **Globales**: Play, Pausa y Reinicio para todos los videos simultáneamente, accesibles desde la ventana principal.
   - **Individuales**: Silenciar/activar audio por pantalla.
+  - **Salida de Kiosco/Pantalla Completa**: Presiona `Esc` o `Q` para pausar todos los videos y salir del modo kiosco/pantalla completa, regresando a la ventana de configuración.
+  - **Detener Video Individual**: Pasa el cursor sobre cualquier video en reproducción y haz clic en el botón "ESC VIDEO" que aparece para cerrar esa ventana de video específica.
 - **Modo Kiosco y "A un clic"**:
-  - Opción para arrancar automáticamente al iniciar sesión en el sistema operativo.
-  - Modo de auto-reproducción que inicia los videos directamente con la última configuración guardada.
   - Las ventanas de reproducción se muestran a pantalla completa, sin bordes y con el cursor oculto.
-- **Empaquetado Multiplataforma**: Configurado con `electron-builder` para generar instaladores para Windows, macOS y Linux.
+  - **Auto-lanzamiento**: Opción para arrancar automáticamente al iniciar sesión en el sistema operativo, cargando el último perfil utilizado.
+  - **Modo Auto-reproducción**: Inicia los videos directamente con el flag `--autoplay`.
 
 ## Requisitos Previos
 
@@ -42,25 +43,44 @@ Desarrollado por **DNA+art / Hábitat de Ideas**.
     npm install
     ```
 
-## Desarrollo
+## Uso de la Aplicación
 
-Para ejecutar la aplicación en modo de desarrollo (con acceso a las herramientas de desarrollo, etc.), usa el siguiente comando:
-
-```bash
-npm start
-```
+1.  **Iniciar la aplicación**:
+    ```bash
+    npm start
+    ```
+2.  **Configurar pantallas**:
+    - La aplicación detectará automáticamente tus pantallas.
+    - Haz clic en "Identify Screens" para ver un número en cada pantalla y facilitar su identificación.
+    - Para cada pantalla, haz clic en "Select Video" para elegir un archivo de video.
+    - Ajusta las opciones de reproducción (bucle, volumen, etc.) según tus necesidades.
+3.  **Guardar/Cargar perfiles**:
+    - Haz clic en "Save Profile" para guardar tu configuración actual en un archivo JSON.
+    - Haz clic en "Load Profile" para cargar una configuración previamente guardada.
+4.  **Iniciar Reproducción**:
+    - Una vez configurado, haz clic en "Start Playback". Las ventanas de video se abrirán en modo kiosco/pantalla completa.
+5.  **Controlar la Reproducción**:
+    - Usa los botones "Play All", "Pause All", "Restart All", "Volume +" y "Volume -" en la ventana principal para controlar todos los videos.
+    - Para detener un video individual, pasa el cursor sobre él y haz clic en "ESC VIDEO".
+    - Para salir del modo kiosco/pantalla completa y pausar todos los videos, presiona `Esc` o `Q`.
+6.  **Auto-lanzamiento**:
+    - Marca la casilla "Launch on startup" para que la aplicación se inicie automáticamente con el último perfil cargado al encender tu sistema.
 
 ## Compilación para Producción
 
 El proyecto está configurado con `electron-builder` para crear los ejecutables e instaladores para cada plataforma.
 
-Para compilar la aplicación para tu sistema operativo actual, ejecuta:
+Para compilar la aplicación para **todas las plataformas** (Windows, macOS y Linux), ejecuta:
 
 ```bash
-npm run build
+npm run build -- -mwl
 ```
 
 Los archivos finales se encontrarán en el directorio `dist/`.
+
+## Licencia
+
+Este proyecto está bajo la licencia ISC. Consulta el archivo `LICENSE` para más detalles.
 
 ## Créditos
 
