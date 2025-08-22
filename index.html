@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Screen Video Player - Configuration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0F1115;
+            --color-surface: #121622;
+            --color-border: #22283A;
+            --color-text-primary: #E6E6E6;
+            --color-text-secondary: #AEB3C2;
+            --color-brand: #4DA3FF;
+            --color-focus: #A3D3FF;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container { padding: 24px; flex-grow: 1; }
+        h1, h2 { margin-top: 0; font-weight: 600; }
+        h1 { font-size: 24px; }
+        h2 { font-size: 20px; margin-bottom: 16px; }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px; /* Adjust as needed */
+        }
+        .header-title h1 {
+            margin: 0; /* Remove h1's default margin */
+        }
+        .header-title img {
+            height: 32px; /* Adjust size as needed */
+        }
+
+        .global-controls { background-color: var(--color-surface); padding: 16px; border-radius: var(--radius-md); margin-bottom: 24px; display: flex; gap: 12px; align-items: center; border: 1px solid var(--color-border); }
+        button {
+            padding: 0 16px;
+            height: 36px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background-color: #1e2434;
+            color: var(--color-text-primary);
+            transition: background-color 120ms;
+        }
+        button:hover { background-color: #2a3247; }
+        button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+        button.primary { background-color: var(--color-brand); border-color: var(--color-brand); }
+        button.primary:hover { background-color: #67b4ff; }
+
+        #screen-list { list-style: none; padding: 0; display: grid; gap: 16px; }
+        .screen-item { background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 16px; }
+        .screen-item h3 { margin: 0 0 16px; font-size: 16px; border-bottom: 1px solid var(--color-border); padding-bottom: 12px; }
+        .screen-item p { margin: 5px 0; font-size: 14px; color: var(--color-text-secondary); }
+
+        .config-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+        .config-item { display: flex; flex-direction: column; }
+        .config-item label { margin-bottom: 8px; font-weight: 400; font-size: 14px; color: var(--color-text-secondary); }
+        .config-item input[type="text"], .config-item select {
+            height: 36px;
+            padding: 0 12px;
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-primary);
+        }
+        .config-item input:focus-visible, .config-item select:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+        .filepath { font-style: italic; color: var(--color-text-secondary); background: var(--color-bg); padding: 8px 12px; border-radius: var(--radius-sm); min-height: 18px; word-wrap: break-word; font-size: 12px; }
+
+        .footer {
+            padding: 16px 24px;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 12px;
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            margin-top: auto;
+        }
+        .footer .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 8px;
+        }
+        .footer .logo-placeholder {
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        .footer .logos img {
+            height: 40px; /* Adjust height as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-title">
+            <img src="assets/app-icon.png" alt="App Icon">
+            <h1>MULTI VIDEO</h1>
+        </div>
+
+        <div class="global-controls">
+            <button id="identify">Identify Screens</button>
+            <button id="load-profile">Load Profile</button>
+            <button id="save-profile">Save Profile</button>
+            <button id="start-playback" class="primary">Start Playback</button>
+
+            <div id="playback-controls" style="display: none; margin-left: 20px; gap: 12px; align-items: center;">
+                <button id="play-all">Play All</button>
+                <button id="pause-all">Pause All</button>
+                <button id="restart-all">Restart All</button>
+                <div style="margin-left: auto; display: flex; gap: 10px; align-items: center;">
+                    <button id="volume-down">-</button>
+                    <span>Volume</span>
+                    <button id="volume-up">+</button>
+                </div>
+            </div>
+
+            <div class="config-item" style="margin-left: auto; flex-direction: row; align-items: center; gap: 10px;">
+                <label for="auto-launch" style="margin-bottom: 0;">Launch on startup</label>
+                <input type="checkbox" id="auto-launch" />
+            </div>
+            <button id="quit-app" style="background-color: #f44336; color: white;">Quit</button>
+        </div>
+
+        <h2>Detected Screens</h2>
+        <ul id="screen-list">
+            <!-- Screen information will be populated by renderer.js -->
+        </ul>
+    </div>
+
+    <footer class="footer">
+        By:
+        <div class="logos">
+            <img src="assets/dna-logo.png" alt="DNA+art Logo">
+            <img src="assets/habitat-logo.svg" alt="Hábitat de Ideas Logo">
+        </div>
+    </footer>
+
+    <script src="./renderer.js"></script>
+</body>
+</html>
